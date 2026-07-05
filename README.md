@@ -247,6 +247,8 @@ During development, every time the driver code has been updated, a rebuild is re
 
     yarn rebuild
 
+`yarn rebuild` and `yarn dist` compile the native driver addon against this project's own Electron version (via `scripts/build-native-addon.sh`), independent of whichever Node.js version is installed on your machine.
+
 For building a distribution ready app and dmg:
 
     yarn dist
