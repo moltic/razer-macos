@@ -5,11 +5,12 @@
   "license": "GPL-2.0-only",
   "main": "src/main/index.js",
   "scripts": {
-    "dev": "electron-webpack dev",
-    "compile": "electron-webpack",
-    "dist": "yarn compile && electron-builder",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider electron-webpack dev",
+    "compile": "NODE_OPTIONS=--openssl-legacy-provider electron-webpack",
+    "build:native": "scripts/build-native-addon.sh",
+    "dist": "yarn build:native && yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null",
-    "rebuild": "node-gyp rebuild",
+    "rebuild": "yarn build:native",
     "clean": "node-gyp clean",
     "prettier:js": "prettier --write \"src/{main,renderer}/**/*.{js,jsx}\""
   },
@@ -59,7 +60,8 @@
   "build": {
     "appId": "com.electron.razer-macos",
     "productName": "Razer macOS",
-    "nodeGypRebuild": true,
+    "nodeGypRebuild": false,
+    "npmRebuild": false,
     "directories": {
       "output": "dist",
       "buildResources": "resources"
